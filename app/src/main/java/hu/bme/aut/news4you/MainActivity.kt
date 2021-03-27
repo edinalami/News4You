@@ -1,11 +1,18 @@
 package hu.bme.aut.news4you
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import co.zsmb.rainbowcake.navigation.SimpleNavActivity
+import hu.bme.aut.news4you.ui.blank.BlankFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : SimpleNavActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (savedInstanceState == null) {
+            navigator.add(BlankFragment())
+        }
     }
+
 }
