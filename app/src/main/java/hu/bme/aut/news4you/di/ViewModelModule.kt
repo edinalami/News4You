@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import hu.bme.aut.news4you.ui.blank.BlankViewModel
 import hu.bme.aut.news4you.ui.home.HomeViewModel
+import hu.bme.aut.news4you.ui.details.DetailsViewModel
 
 @Suppress("unused")
 @Module
@@ -16,6 +17,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    abstract fun bindDetailsViewModel(detailsViewModel: DetailsViewModel): ViewModel
 
     @Binds
     @IntoMap
