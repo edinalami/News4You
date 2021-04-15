@@ -9,6 +9,6 @@ interface NewsApi {
      *
      * @return Call<NewsResponse>
     </NewsResponse> */
-    @GET("magazine.json")
+    @GET("home.json")
     suspend fun getLatestNews(): LatestNewsResponse
 }
