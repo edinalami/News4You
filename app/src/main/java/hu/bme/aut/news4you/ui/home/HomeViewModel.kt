@@ -5,10 +5,18 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val homePresenter: HomePresenter
-) : RainbowCakeViewModel<HomeViewState>(Loading) {
+) : RainbowCakeViewModel<HomeViewState>(Initial) {
 
     fun load() = execute {
-        viewState = HomeReady(homePresenter.getData())
+        viewState = Loading
+
+        val data = homePresenter.getLatestNews()
+
+        viewState = if (data != null) {
+            HomeReady(data)
+        } else {
+            Error
+        }
     }
 
 }

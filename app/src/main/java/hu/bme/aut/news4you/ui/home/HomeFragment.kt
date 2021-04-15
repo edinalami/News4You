@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.View
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
+import co.zsmb.rainbowcake.extensions.exhaustive
 import hu.bme.aut.news4you.R
+import kotlinx.android.synthetic.main.fragment_home.*
+import timber.log.Timber
 
 class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>() {
 
@@ -24,7 +27,14 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>() {
     }
 
     override fun render(viewState: HomeViewState) {
-        // TODO Render state
+        when (viewState) {
+            is Initial -> Timber.d("Initial")
+            is Loading -> Timber.d("Loading")
+            is HomeReady -> {
+                experiment.text = viewState.data[0].multimediaUrl
+            }
+            is Error -> Timber.d("Error")
+        }.exhaustive
     }
 
 }

@@ -7,10 +7,9 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import hu.bme.aut.news4you.ui.about.AboutViewModel
 import hu.bme.aut.news4you.ui.blank.BlankViewModel
-import hu.bme.aut.news4you.ui.home.HomeViewModel
 import hu.bme.aut.news4you.ui.details.DetailsViewModel
+import hu.bme.aut.news4you.ui.home.HomeViewModel
 
-@Suppress("unused")
 @Module
 abstract class ViewModelModule {
 
