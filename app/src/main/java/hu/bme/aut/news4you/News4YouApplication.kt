@@ -9,7 +9,7 @@ import hu.bme.aut.news4you.di.ApplicationModule
 import hu.bme.aut.news4you.di.DaggerAppComponent
 import timber.log.Timber
 
-class News4YouApplication : RainbowCakeApplication() {
+open class News4YouApplication : RainbowCakeApplication() {
 
     override lateinit var injector: AppComponent
 

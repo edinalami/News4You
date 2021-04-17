@@ -25,7 +25,7 @@ interface UserApi {
     @PUT("user")
     fun updateUser(
         @Body body: User
-    ): Call<Void>
+    )
 
     /**
      * Creates user
@@ -36,5 +36,5 @@ interface UserApi {
     @POST("user")
     fun createUser(
         @Body body: User
-    ): Call<Void>
+    )
 }

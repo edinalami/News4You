@@ -1,4 +1,4 @@
-package hu.bme.aut.news4you
+package hu.bme.aut.news4you.other
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
