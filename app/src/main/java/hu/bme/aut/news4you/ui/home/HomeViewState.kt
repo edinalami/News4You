@@ -8,6 +8,10 @@ object Initial : HomeViewState()
 
 object Loading : HomeViewState()
 
-data class HomeReady(val data: List<DomainArticle>) : HomeViewState()
+data class HomeReady(val data: List<List<DomainArticle>>) : HomeViewState()
+
+object Saved : HomeViewState()
+
+object Deleted : HomeViewState()
 
 object Error : HomeViewState()
