@@ -13,12 +13,20 @@ import hu.bme.aut.news4you.ui.home.adapter.ArticleAdapter.Companion.LATEST
 import hu.bme.aut.news4you.ui.home.adapter.ArticleAdapter.Companion.SAVED
 import kotlinx.android.synthetic.main.fragment_article_list.*
 
-class ArticleListFragment(private val type: Int, private val articles: List<DomainArticle>) :
+class ArticleListFragment() :
     Fragment(), ArticleAdapter.Listener {
+
+    private var type: Int = -1
+    private val articles: MutableList<DomainArticle> = mutableListOf()
 
     var listener: Listener? = null
 
     lateinit var adapter: ArticleAdapter
+
+    constructor(type: Int, articles: List<DomainArticle>) : this() {
+        this.type = type
+        this.articles.addAll(articles)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
