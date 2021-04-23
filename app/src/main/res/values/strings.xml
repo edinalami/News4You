@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">News4You</string>
+    <string name="about">About</string>
+    <string name="news4you">News4You</string>
+    <string name="software_version">Software Version: 1.0.0</string>
+    <string name="last_update">Last Update: 2021.04.23</string>
+    <string name="created_by">Created By:</string>
+    <string name="creator_name">Lami Edina</string>
+    <string name="creator_id">TFTXG4</string>
 </resources>

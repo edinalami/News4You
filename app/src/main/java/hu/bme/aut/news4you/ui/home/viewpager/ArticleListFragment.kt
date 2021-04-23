@@ -21,23 +21,11 @@ class ArticleListFragment() :
 
     var listener: Listener? = null
 
-    lateinit var adapter: ArticleAdapter
+    var adapter: ArticleAdapter = ArticleAdapter(LATEST)
 
     constructor(type: Int, articles: List<DomainArticle>) : this() {
         this.type = type
         this.articles.addAll(articles)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_article_list, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         adapter = when (type) {
             LATEST -> {
@@ -53,6 +41,19 @@ class ArticleListFragment() :
 
         adapter.listener = this
         adapter.submitList(articles)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_article_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         listArticles.layoutManager = LinearLayoutManager(context)
         listArticles.adapter = adapter
 

@@ -2,9 +2,16 @@ package hu.bme.aut.news4you.ui.about
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import hu.bme.aut.news4you.R
+import kotlinx.android.synthetic.main.fragment_about.*
+
 
 class AboutFragment : RainbowCakeFragment<AboutViewState, AboutViewModel>() {
 
@@ -14,7 +21,13 @@ class AboutFragment : RainbowCakeFragment<AboutViewState, AboutViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO Setup views
+        var requestOptions = RequestOptions()
+        requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(32))
+        Glide.with(context!!)
+            .load(ContextCompat.getDrawable(context!!, R.drawable.logo_news4you))
+            .apply(requestOptions)
+            .into(logo)
+
     }
 
     override fun onStart() {
