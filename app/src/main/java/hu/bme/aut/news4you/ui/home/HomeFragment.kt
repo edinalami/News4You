@@ -11,19 +11,26 @@ import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.exhaustive
 import co.zsmb.rainbowcake.navigation.navigator
 import hu.bme.aut.news4you.R
-import hu.bme.aut.news4you.interactor.model.DomainArticle
 import hu.bme.aut.news4you.ui.about.AboutFragment
+import hu.bme.aut.news4you.ui.details.DetailsFragment
+import hu.bme.aut.news4you.ui.home.model.UIArticle
 import hu.bme.aut.news4you.ui.home.viewpager.HomePagerAdapter
+import hu.bme.aut.news4you.util.messaging.ArticleClickedEvent
+import hu.bme.aut.news4you.util.messaging.ArticleDeletedEvent
+import hu.bme.aut.news4you.util.messaging.ArticleSavedEvent
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 
-class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
-    HomePagerAdapter.Listener {
+
+class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>() {
 
     private lateinit var homePagerAdapter: HomePagerAdapter
 
-    private var latest: MutableList<DomainArticle> = mutableListOf()
-    private var saved: MutableList<DomainArticle> = mutableListOf()
+    private var latest: MutableList<UIArticle> = mutableListOf()
+    private var saved: MutableList<UIArticle> = mutableListOf()
 
     override fun provideViewModel() = getViewModelFromFactory()
     override fun getViewResource() = R.layout.fragment_home
@@ -39,7 +46,6 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
                 latest,
                 saved
             )
-        homePagerAdapter.listener = this
 
     }
 
@@ -51,11 +57,19 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
     override fun onResume() {
         super.onResume()
-
         viewModel.load()
+    }
 
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
     }
 
     override fun render(viewState: HomeViewState) {
@@ -82,6 +96,8 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
                     it.submitList(saved)
                     it.notifyDataSetChanged()
                 }
+
+                viewModel.init()
             }
             is Saved -> {
                 Timber.d("Saved")
@@ -95,18 +111,26 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
         }.exhaustive
     }
 
-    override fun onArticleClicked(article: DomainArticle) {
-        Toast.makeText(context, "${article.title} CLICKED", Toast.LENGTH_SHORT).show()
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onArticleClickedEvent(event: ArticleClickedEvent) {
+        val detailsFragment = DetailsFragment()
+        val bundle = Bundle()
+        bundle.putSerializable("article", event.article)
+        detailsFragment.arguments = bundle
+
+        navigator?.add(detailsFragment)
     }
 
-    override fun onSaveClicked(article: DomainArticle) {
-        Toast.makeText(context, "${article.title} SAVED", Toast.LENGTH_SHORT).show()
-        viewModel.save(article)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onArticleSavedEvent(event: ArticleSavedEvent) {
+        Toast.makeText(context, "${event.article.title} SAVED", Toast.LENGTH_SHORT).show()
+        viewModel.save(event.article)
     }
 
-    override fun onDeleteClicked(article: DomainArticle) {
-        Toast.makeText(context, "${article.title} DELETED", Toast.LENGTH_SHORT).show()
-        viewModel.delete(article.uri)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onArticleDeletedEvent(event: ArticleDeletedEvent) {
+        Toast.makeText(context, "${event.article.title} DELETED", Toast.LENGTH_SHORT).show()
+        viewModel.delete(event.article.uri)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

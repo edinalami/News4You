@@ -13,6 +13,7 @@ class MainActivity : SimpleNavActivity() {
         if (savedInstanceState == null) {
             navigator.add(HomeFragment())
         }
+
     }
 
 }

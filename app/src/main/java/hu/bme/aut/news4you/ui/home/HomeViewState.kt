@@ -1,6 +1,6 @@
 package hu.bme.aut.news4you.ui.home
 
-import hu.bme.aut.news4you.interactor.model.DomainArticle
+import hu.bme.aut.news4you.ui.home.model.UIArticle
 
 sealed class HomeViewState
 
@@ -8,7 +8,7 @@ object Initial : HomeViewState()
 
 object Loading : HomeViewState()
 
-data class HomeReady(val data: List<List<DomainArticle>>) : HomeViewState()
+data class HomeReady(val data: List<List<UIArticle>>) : HomeViewState()
 
 object Saved : HomeViewState()
 

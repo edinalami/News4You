@@ -1,9 +1,10 @@
 package hu.bme.aut.news4you.interactor
 
 import hu.bme.aut.news4you.database.DiskDataSource
-import hu.bme.aut.news4you.interactor.model.DomainArticle
 import hu.bme.aut.news4you.interactor.model.DomainUser
 import hu.bme.aut.news4you.network.NetworkDataSource
+import hu.bme.aut.news4you.ui.home.model.ArticleState
+import hu.bme.aut.news4you.ui.home.model.UIArticle
 import hu.bme.aut.news4you.util.network.*
 import javax.inject.Inject
 
@@ -12,16 +13,16 @@ class AppInteractor @Inject constructor(
     private val diskDataSource: DiskDataSource
 ) {
 
-    suspend fun getLatestNews(): DataTransferResponse<List<DomainArticle>> {
+    suspend fun getLatestNews(): DataTransferResponse<List<UIArticle>> {
         return when (val response = networkDataSource.getLatestNews()) {
             is NetworkResult -> {
                 diskDataSource.populateCachedNews(response.result)
-                DataTransferSuccess(response.result)
+                DataTransferSuccess(response.result.map { it.toUIArticle(ArticleState.LATEST) })
             }
             else -> {
                 val list = diskDataSource.getLatestNews()
                 if (list.isNotEmpty()) {
-                    NetworkUnavailableCached(list)
+                    NetworkUnavailableCached(list.map { it.toUIArticle(ArticleState.LATEST) })
                 } else {
                     NetworkUnavailableNotCached
                 }
@@ -29,16 +30,16 @@ class AppInteractor @Inject constructor(
         }
     }
 
-    suspend fun getSavedNews(): DataTransferResponse<List<DomainArticle>> {
+    suspend fun getSavedNews(): DataTransferResponse<List<UIArticle>> {
         return when (val response = networkDataSource.getSavedArticles()) {
             is NetworkResult -> {
                 diskDataSource.populateSavedNews(response.result)
-                DataTransferSuccess(response.result)
+                DataTransferSuccess(response.result.map { it.toUIArticle(ArticleState.SAVED) })
             }
             else -> {
                 val list = diskDataSource.getSavedNews()
                 if (list.isNotEmpty()) {
-                    NetworkUnavailableCached(list)
+                    NetworkUnavailableCached(list.map { it.toUIArticle(ArticleState.SAVED) })
                 } else {
                     NetworkUnavailableNotCached
                 }
@@ -46,20 +47,22 @@ class AppInteractor @Inject constructor(
         }
     }
 
-    suspend fun saveArticle(domainArticle: DomainArticle): DataTransferResponse<Boolean> {
-        return when (networkDataSource.saveArticle(domainArticle)) {
+    suspend fun saveArticle(uiArticle: UIArticle): DataTransferResponse<Boolean> {
+        /*return when (networkDataSource.saveArticle(uiArticle.toDomainArticle())) {
             is NetworkResult -> {
-                diskDataSource.saveArticle(domainArticle.uri)
+                diskDataSource.saveArticle(uiArticle.toDomainArticle().uri)
                 DataTransferSuccess(true)
             }
             else -> {
                 NetworkUnavailableNotCached
             }
-        }
+        }*/
+        diskDataSource.saveArticle(uiArticle.toDomainArticle().uri)
+        return DataTransferSuccess(true)
     }
 
     suspend fun deleteArticle(uri: String): DataTransferResponse<Boolean> {
-        return when (networkDataSource.deleteArticle(uri)) {
+        /*return when (networkDataSource.deleteArticle(uri)) {
             is NetworkResult -> {
                 diskDataSource.deleteArticle(uri)
                 DataTransferSuccess(true)
@@ -67,7 +70,9 @@ class AppInteractor @Inject constructor(
             else -> {
                 NetworkUnavailableNotCached
             }
-        }
+        }*/
+        diskDataSource.deleteArticle(uri)
+        return DataTransferSuccess(true)
     }
 
     suspend fun getUser(): DataTransferResponse<DomainUser> {

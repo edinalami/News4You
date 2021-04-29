@@ -8,16 +8,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.news4you.R
-import hu.bme.aut.news4you.interactor.model.DomainArticle
+import hu.bme.aut.news4you.ui.home.model.UIArticle
+import hu.bme.aut.news4you.util.messaging.ArticleClickedEvent
+import hu.bme.aut.news4you.util.messaging.ArticleDeletedEvent
+import hu.bme.aut.news4you.util.messaging.ArticleSavedEvent
 import kotlinx.android.synthetic.main.article_row_latest.view.*
-import kotlinx.android.synthetic.main.article_row_latest.view.tvPosition
+import kotlinx.android.synthetic.main.article_row_latest.view.tvDate
+import kotlinx.android.synthetic.main.article_row_latest.view.tvSection
 import kotlinx.android.synthetic.main.article_row_latest.view.tvTitle
 import kotlinx.android.synthetic.main.article_row_saved.view.*
+import org.greenrobot.eventbus.EventBus
 
 class ArticleAdapter(private val type: Int) :
-    ListAdapter<DomainArticle, ArticleAdapter.ArticleViewHolder>(ArticleComparator) {
-
-    var listener: Listener? = null
+    ListAdapter<UIArticle, ArticleAdapter.ArticleViewHolder>(ArticleComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         return when (type) {
@@ -44,14 +47,16 @@ class ArticleAdapter(private val type: Int) :
 
         holder.article = article
 
-        holder.tvPos.text = position.toString()
         holder.tvTitle.text = article.title
+        holder.tvSection.text = article.section
+        holder.tvDate.text = article.publishedDate.substringBefore('T')
     }
 
     inner class ArticleViewHolder(articleView: View) : RecyclerView.ViewHolder(articleView) {
-        var article: DomainArticle? = null
+        var article: UIArticle? = null
 
-        val tvPos: TextView = articleView.tvPosition
+        val tvSection: TextView = articleView.tvSection
+        val tvDate: TextView = articleView.tvDate
         val tvTitle: TextView = articleView.tvTitle
 
         private val imgSave: ImageView? = articleView.imgSave
@@ -59,21 +64,17 @@ class ArticleAdapter(private val type: Int) :
 
         init {
             articleView.setOnClickListener {
-                article?.let { listener?.onArticleClicked(it) }
+                EventBus.getDefault().post(ArticleClickedEvent(article!!))
             }
+
             imgSave?.setOnClickListener {
-                article?.let { listener?.onSaveClicked(it) }
+                EventBus.getDefault().post(ArticleSavedEvent(article!!))
             }
+
             imgDelete?.setOnClickListener {
-                article?.let { listener?.onDeleteClicked(it) }
+                EventBus.getDefault().post(ArticleDeletedEvent(article!!))
             }
         }
-    }
-
-    interface Listener {
-        fun onArticleClicked(article: DomainArticle)
-        fun onSaveClicked(article: DomainArticle)
-        fun onDeleteClicked(article: DomainArticle)
     }
 
     companion object {

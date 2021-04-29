@@ -1,6 +1,6 @@
 package hu.bme.aut.news4you.interactor.model
 
-class DomainArticle(
+open class DomainArticle(
     val uri: String,
     val section: String,
     val title: String,

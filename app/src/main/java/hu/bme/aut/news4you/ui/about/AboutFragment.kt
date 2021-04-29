@@ -5,11 +5,11 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import hu.bme.aut.news4you.R
+import hu.bme.aut.news4you.util.glide.GlideApp
 import kotlinx.android.synthetic.main.fragment_about.*
 
 
@@ -23,8 +23,8 @@ class AboutFragment : RainbowCakeFragment<AboutViewState, AboutViewModel>() {
 
         var requestOptions = RequestOptions()
         requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(32))
-        Glide.with(context!!)
-            .load(ContextCompat.getDrawable(context!!, R.drawable.logo_news4you))
+        GlideApp.with(requireContext())
+            .load(ContextCompat.getDrawable(requireContext(), R.drawable.logo_news4you))
             .apply(requestOptions)
             .into(logo)
 

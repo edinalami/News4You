@@ -1,7 +1,7 @@
 package hu.bme.aut.news4you.ui.home
 
 import co.zsmb.rainbowcake.base.RainbowCakeViewModel
-import hu.bme.aut.news4you.interactor.model.DomainArticle
+import hu.bme.aut.news4you.ui.home.model.UIArticle
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
@@ -20,10 +20,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun save(domainArticle: DomainArticle) = execute {
+    fun save(uiArticle: UIArticle) = execute {
         viewState = Loading
 
-        val status = homePresenter.saveArticle(domainArticle)
+        val status = homePresenter.saveArticle(uiArticle)
 
         viewState = if (status != null) {
             Saved
@@ -42,6 +42,10 @@ class HomeViewModel @Inject constructor(
         } else {
             Error
         }
+    }
+
+    fun init() = execute {
+        viewState = Initial
     }
 
 }

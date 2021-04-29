@@ -1,15 +1,15 @@
 package hu.bme.aut.news4you.ui.home.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import hu.bme.aut.news4you.interactor.model.DomainArticle
+import hu.bme.aut.news4you.ui.home.model.UIArticle
 
-object ArticleComparator : DiffUtil.ItemCallback<DomainArticle>() {
+object ArticleComparator : DiffUtil.ItemCallback<UIArticle>() {
 
-    override fun areItemsTheSame(oldItem: DomainArticle, newItem: DomainArticle): Boolean {
+    override fun areItemsTheSame(oldItem: UIArticle, newItem: UIArticle): Boolean {
         return oldItem.uri == newItem.uri
     }
 
-    override fun areContentsTheSame(oldItem: DomainArticle, newItem: DomainArticle): Boolean {
+    override fun areContentsTheSame(oldItem: UIArticle, newItem: UIArticle): Boolean {
         return oldItem == newItem
     }
 
