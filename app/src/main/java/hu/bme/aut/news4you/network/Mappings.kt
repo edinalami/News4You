@@ -14,7 +14,7 @@ fun Article.toDomainArticle(): DomainArticle {
         abstract = abstract,
         url = url,
         publishedDate = publishedDate,
-        multimediaUrl = multimedia.last().url
+        multimediaUrl = multimedia.first().url
     )
 }
 

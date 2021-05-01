@@ -1,5 +1,7 @@
 package hu.bme.aut.news4you.ui.home.adapter
 
+import android.content.res.Resources
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,12 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import hu.bme.aut.news4you.R
-import hu.bme.aut.news4you.ui.home.model.UIArticle
+import hu.bme.aut.news4you.ui.model.UIArticle
 import hu.bme.aut.news4you.util.messaging.ArticleClickedEvent
 import hu.bme.aut.news4you.util.messaging.ArticleDeletedEvent
 import hu.bme.aut.news4you.util.messaging.ArticleSavedEvent
+import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.article_row_latest.view.*
+import kotlinx.android.synthetic.main.article_row_latest.view.imgArticleCover
 import kotlinx.android.synthetic.main.article_row_latest.view.tvDate
 import kotlinx.android.synthetic.main.article_row_latest.view.tvSection
 import kotlinx.android.synthetic.main.article_row_latest.view.tvTitle
@@ -50,6 +55,12 @@ class ArticleAdapter(private val type: Int) :
         holder.tvTitle.text = article.title
         holder.tvSection.text = article.section
         holder.tvDate.text = article.publishedDate.substringBefore('T')
+
+        Picasso.get()
+            .load(article.multimediaUrl)
+            .transform(CropCircleTransformation())
+            .into(holder.imgCover)
+
     }
 
     inner class ArticleViewHolder(articleView: View) : RecyclerView.ViewHolder(articleView) {
@@ -61,6 +72,7 @@ class ArticleAdapter(private val type: Int) :
 
         private val imgSave: ImageView? = articleView.imgSave
         private val imgDelete: ImageView? = articleView.imgDelete
+        val imgCover: ImageView = articleView.imgArticleCover
 
         init {
             articleView.setOnClickListener {

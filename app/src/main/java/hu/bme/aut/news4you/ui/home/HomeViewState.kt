@@ -1,6 +1,6 @@
 package hu.bme.aut.news4you.ui.home
 
-import hu.bme.aut.news4you.ui.home.model.UIArticle
+import hu.bme.aut.news4you.ui.model.UIArticle
 
 sealed class HomeViewState
 

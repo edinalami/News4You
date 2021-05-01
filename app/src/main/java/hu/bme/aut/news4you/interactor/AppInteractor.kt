@@ -3,8 +3,8 @@ package hu.bme.aut.news4you.interactor
 import hu.bme.aut.news4you.database.DiskDataSource
 import hu.bme.aut.news4you.interactor.model.DomainUser
 import hu.bme.aut.news4you.network.NetworkDataSource
-import hu.bme.aut.news4you.ui.home.model.ArticleState
-import hu.bme.aut.news4you.ui.home.model.UIArticle
+import hu.bme.aut.news4you.ui.model.ArticleState
+import hu.bme.aut.news4you.ui.model.UIArticle
 import hu.bme.aut.news4you.util.network.*
 import javax.inject.Inject
 

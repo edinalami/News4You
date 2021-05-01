@@ -2,7 +2,7 @@ package hu.bme.aut.news4you.ui.home
 
 import co.zsmb.rainbowcake.withIOContext
 import hu.bme.aut.news4you.interactor.AppInteractor
-import hu.bme.aut.news4you.ui.home.model.UIArticle
+import hu.bme.aut.news4you.ui.model.UIArticle
 import hu.bme.aut.news4you.util.network.SomeResult
 import javax.inject.Inject
 

@@ -2,6 +2,12 @@ package hu.bme.aut.news4you.ui.details
 
 sealed class DetailsViewState
 
+object Initial : DetailsViewState()
+
 object Loading : DetailsViewState()
 
-data class DetailsReady(val data: String = "") : DetailsViewState()
+object Saved : DetailsViewState()
+
+object Deleted : DetailsViewState()
+
+object Error : DetailsViewState()

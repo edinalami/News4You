@@ -1,4 +1,4 @@
-package hu.bme.aut.news4you.ui.home.model
+package hu.bme.aut.news4you.ui.model
 
 import hu.bme.aut.news4you.interactor.model.DomainArticle
 import java.io.Serializable

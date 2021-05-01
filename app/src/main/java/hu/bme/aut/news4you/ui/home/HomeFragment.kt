@@ -13,7 +13,7 @@ import co.zsmb.rainbowcake.navigation.navigator
 import hu.bme.aut.news4you.R
 import hu.bme.aut.news4you.ui.about.AboutFragment
 import hu.bme.aut.news4you.ui.details.DetailsFragment
-import hu.bme.aut.news4you.ui.home.model.UIArticle
+import hu.bme.aut.news4you.ui.model.UIArticle
 import hu.bme.aut.news4you.ui.home.viewpager.HomePagerAdapter
 import hu.bme.aut.news4you.util.messaging.ArticleClickedEvent
 import hu.bme.aut.news4you.util.messaging.ArticleDeletedEvent

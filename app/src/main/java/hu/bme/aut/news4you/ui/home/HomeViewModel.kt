@@ -1,7 +1,7 @@
 package hu.bme.aut.news4you.ui.home
 
 import co.zsmb.rainbowcake.base.RainbowCakeViewModel
-import hu.bme.aut.news4you.ui.home.model.UIArticle
+import hu.bme.aut.news4you.ui.model.UIArticle
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
         val status = homePresenter.deleteArticle(uri)
 
         viewState = if (status != null) {
-            Saved
+            Deleted
         } else {
             Error
         }

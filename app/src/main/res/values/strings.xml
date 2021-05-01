@@ -7,4 +7,7 @@
     <string name="created_by">Created By:</string>
     <string name="creator_name">Lami Edina</string>
     <string name="creator_id">TFTXG4</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="save_article">Save article</string>
+    <string name="delete_article">Delete article</string>
 </resources>

@@ -1,7 +1,7 @@
 package hu.bme.aut.news4you.ui.home.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import hu.bme.aut.news4you.ui.home.model.UIArticle
+import hu.bme.aut.news4you.ui.model.UIArticle
 
 object ArticleComparator : DiffUtil.ItemCallback<UIArticle>() {
 

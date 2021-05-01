@@ -10,7 +10,7 @@ import hu.bme.aut.news4you.R
 import hu.bme.aut.news4you.ui.home.adapter.ArticleAdapter
 import hu.bme.aut.news4you.ui.home.adapter.ArticleAdapter.Companion.LATEST
 import hu.bme.aut.news4you.ui.home.adapter.ArticleAdapter.Companion.SAVED
-import hu.bme.aut.news4you.ui.home.model.UIArticle
+import hu.bme.aut.news4you.ui.model.UIArticle
 import kotlinx.android.synthetic.main.fragment_article_list.*
 
 class ArticleListFragment() : Fragment() {
