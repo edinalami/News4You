@@ -37,7 +37,7 @@ class NetworkDataSource @Inject constructor(
             readingListApi.deleteFromReadingList(uri)
         }
 
-    suspend fun getUser(): NetworkResponse<DomainUser> = executeNetworkCall {
+    /*suspend fun getUser(): NetworkResponse<DomainUser> = executeNetworkCall {
         userApi.getUser().toDomainUser()
     }
 
@@ -47,5 +47,5 @@ class NetworkDataSource @Inject constructor(
 
     suspend fun updateUser(domainUser: DomainUser) = executeNetworkCall {
         userApi.updateUser(domainUser.toUser())
-    }
+    }*/
 }

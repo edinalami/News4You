@@ -3,9 +3,8 @@ package hu.bme.aut.news4you.database
 import hu.bme.aut.news4you.database.dao.ArticleDao
 import hu.bme.aut.news4you.database.dao.UserDao
 import hu.bme.aut.news4you.database.model.RoomArticle
-import hu.bme.aut.news4you.database.model.RoomUser
 import hu.bme.aut.news4you.interactor.model.DomainArticle
-import hu.bme.aut.news4you.interactor.model.DomainUser
+import hu.bme.aut.news4you.ui.model.ArticleState
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,8 +21,18 @@ class DiskDataSource @Inject constructor(
         return articleDao.getSavedArticles().map(RoomArticle::toDomainArticle)
     }
 
-    fun getArticle(id: String): DomainArticle? {
+    /*fun getArticle(id: String): DomainArticle? {
         return articleDao.getArticleById(id)?.toDomainArticle()
+    }*/
+
+    fun getArticleState(id: String): ArticleState {
+        val article = articleDao.getArticleById(id)
+        if (article?.saved == true) {
+            return ArticleState.SAVED
+        } else if (article?.latest == true) {
+            return ArticleState.LATEST
+        }
+        return ArticleState.NONE
     }
 
     fun saveArticle(id: String) {
@@ -54,7 +63,7 @@ class DiskDataSource @Inject constructor(
         }
     }
 
-    fun getUser(): DomainUser? {
+    /*fun getUser(): DomainUser? {
         return userDao.getUser()?.toDomainUser()
     }
 
@@ -69,5 +78,5 @@ class DiskDataSource @Inject constructor(
 
     fun deleteUser(domainUser: DomainUser) {
         userDao.deleteUser(domainUser.toRoomUser())
-    }
+    }*/
 }

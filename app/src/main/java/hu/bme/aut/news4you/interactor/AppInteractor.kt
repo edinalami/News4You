@@ -1,7 +1,6 @@
 package hu.bme.aut.news4you.interactor
 
 import hu.bme.aut.news4you.database.DiskDataSource
-import hu.bme.aut.news4you.interactor.model.DomainUser
 import hu.bme.aut.news4you.network.NetworkDataSource
 import hu.bme.aut.news4you.ui.model.ArticleState
 import hu.bme.aut.news4you.ui.model.UIArticle
@@ -48,7 +47,7 @@ class AppInteractor @Inject constructor(
     }
 
     suspend fun saveArticle(uiArticle: UIArticle): DataTransferResponse<Boolean> {
-        /*return when (networkDataSource.saveArticle(uiArticle.toDomainArticle())) {
+        return when (networkDataSource.saveArticle(uiArticle.toDomainArticle())) {
             is NetworkResult -> {
                 diskDataSource.saveArticle(uiArticle.toDomainArticle().uri)
                 DataTransferSuccess(true)
@@ -56,13 +55,13 @@ class AppInteractor @Inject constructor(
             else -> {
                 NetworkUnavailableNotCached
             }
-        }*/
-        diskDataSource.saveArticle(uiArticle.toDomainArticle().uri)
-        return DataTransferSuccess(true)
+        }
+        //diskDataSource.saveArticle(uiArticle.toDomainArticle().uri)
+        //return DataTransferSuccess(true)
     }
 
     suspend fun deleteArticle(uri: String): DataTransferResponse<Boolean> {
-        /*return when (networkDataSource.deleteArticle(uri)) {
+        return when (networkDataSource.deleteArticle(uri)) {
             is NetworkResult -> {
                 diskDataSource.deleteArticle(uri)
                 DataTransferSuccess(true)
@@ -70,12 +69,16 @@ class AppInteractor @Inject constructor(
             else -> {
                 NetworkUnavailableNotCached
             }
-        }*/
-        diskDataSource.deleteArticle(uri)
-        return DataTransferSuccess(true)
+        }
+        //diskDataSource.deleteArticle(uri)
+        //return DataTransferSuccess(true)
     }
 
-    suspend fun getUser(): DataTransferResponse<DomainUser> {
+    fun getArticleState(uri: String): DataTransferResponse<ArticleState> {
+        return DataTransferSuccess(diskDataSource.getArticleState(uri))
+    }
+
+    /*suspend fun getUser(): DataTransferResponse<DomainUser> {
         return when (val response = networkDataSource.getUser()) {
             is NetworkResult -> {
                 DataTransferSuccess(response.result)
@@ -113,6 +116,6 @@ class AppInteractor @Inject constructor(
                 NetworkUnavailableNotCached
             }
         }
-    }
+    }*/
 
 }

@@ -1,4 +1,4 @@
-package hu.bme.aut.news4you.mockAndroidTest.network
+package hu.bme.aut.news4you.androidTestMock.network
 
 import hu.bme.aut.news4you.network.api.UserApi
 import hu.bme.aut.news4you.network.model.User

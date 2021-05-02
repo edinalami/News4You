@@ -1,9 +1,8 @@
-package hu.bme.aut.news4you.utils
+package hu.bme.aut.news4you
 
 import android.app.Application
 import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
-import hu.bme.aut.news4you.AndroidTestNews4YouApplication
 import kotlin.jvm.Throws
 
 class ApplicationTestRunner : AndroidJUnitRunner() {

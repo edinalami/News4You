@@ -1,4 +1,4 @@
-package hu.bme.aut.news4you.mockAndroidTest.network
+package hu.bme.aut.news4you.testMock.network
 
 import dagger.Module
 import dagger.Provides

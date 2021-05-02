@@ -1,4 +1,4 @@
-package hu.bme.aut.news4you.other
+package hu.bme.aut.news4you.test
 
 import org.junit.Test
 

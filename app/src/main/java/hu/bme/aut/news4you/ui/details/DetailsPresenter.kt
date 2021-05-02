@@ -2,6 +2,7 @@ package hu.bme.aut.news4you.ui.details
 
 import co.zsmb.rainbowcake.withIOContext
 import hu.bme.aut.news4you.interactor.AppInteractor
+import hu.bme.aut.news4you.ui.model.ArticleState
 import hu.bme.aut.news4you.ui.model.UIArticle
 import hu.bme.aut.news4you.util.network.SomeResult
 import javax.inject.Inject
@@ -26,6 +27,17 @@ class DetailsPresenter @Inject constructor(private val appInteractor: AppInterac
             }
             else -> {
                 null
+            }
+        }
+    }
+
+    fun getArticleState(uri: String): ArticleState {
+        when (val response = appInteractor.getArticleState(uri)) {
+            is SomeResult -> {
+                return response.result
+            }
+            else -> {
+                return ArticleState.NONE
             }
         }
     }

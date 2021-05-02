@@ -1,4 +1,4 @@
-package hu.bme.aut.news4you.mockTest.network
+package hu.bme.aut.news4you.testMock.network
 
 import hu.bme.aut.news4you.network.api.ReadingListApi
 import hu.bme.aut.news4you.network.model.Article

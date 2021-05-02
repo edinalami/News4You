@@ -1,4 +1,4 @@
-package hu.bme.aut.news4you.mockAndroidTest.network
+package hu.bme.aut.news4you.androidTestMock.network
 
 import hu.bme.aut.news4you.network.api.ReadingListApi
 import hu.bme.aut.news4you.network.model.Article
@@ -70,11 +70,7 @@ class MockReadingListApi : ReadingListApi {
     }
 
     override suspend fun deleteFromReadingList(articleUri: String) {
-        for (article in articles) {
-            if (article.uri == articleUri) {
-                articles.remove(article)
-            }
-        }
+        articles.remove(articles.find { it.uri == articleUri })
     }
 
     override suspend fun saveToReadingList(body: Article) {
