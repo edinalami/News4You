@@ -28,14 +28,12 @@ class HomeAndroidTest : EspressoTest<MainActivity>(MainActivity::class.java) {
     fun testGetLatestContent() = runBlocking {
         val data = homePresenter.getContent()
         Assert.assertEquals(3, data!![0].size)
-        //Assert.assertEquals(1, 1)
     }
 
     @Test
     fun testGetSavedContent() = runBlocking {
         val data = homePresenter.getContent()
         Assert.assertEquals(3, data!![1].size)
-        //Assert.assertEquals(1, 1)
     }
 
     @Test
@@ -50,7 +48,6 @@ class HomeAndroidTest : EspressoTest<MainActivity>(MainActivity::class.java) {
 
         Assert.assertEquals(2, latestArticles.size)
         Assert.assertEquals(4, savedArticles.size)
-        //Assert.assertEquals(1, 1)
     }
 
     @Test
@@ -65,7 +62,6 @@ class HomeAndroidTest : EspressoTest<MainActivity>(MainActivity::class.java) {
 
         Assert.assertEquals(2, savedArticles.size)
         Assert.assertEquals(4, latestArticles.size)
-        //Assert.assertEquals(1, 1)
     }
 
 }

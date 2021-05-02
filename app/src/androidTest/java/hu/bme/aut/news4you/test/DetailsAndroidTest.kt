@@ -38,7 +38,6 @@ class DetailsAndroidTest : EspressoTest<MainActivity>(MainActivity::class.java) 
         val state = detailsPresenter.getArticleState(article.uri)
 
         Assert.assertEquals(ArticleState.SAVED, state)
-        //Assert.assertEquals(1, 1)
     }
 
     @Test
@@ -51,7 +50,6 @@ class DetailsAndroidTest : EspressoTest<MainActivity>(MainActivity::class.java) 
             detailsPresenter.getArticleState("nyt://article/4b1efa4e-8c05-5f99-acef-725fe59385e9")
 
         Assert.assertEquals(ArticleState.LATEST, state)
-        //Assert.assertEquals(1, 1)
     }
 
     @Test
@@ -64,6 +62,5 @@ class DetailsAndroidTest : EspressoTest<MainActivity>(MainActivity::class.java) 
             detailsPresenter.getArticleState("nyt://article/fbaa08c4-2c82-553f-ae7c-300d91aaef85")
 
         Assert.assertEquals(ArticleState.NONE, state)
-        //Assert.assertEquals(1, 1)
     }
 }
