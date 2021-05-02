@@ -13,10 +13,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 class DiskDataSourceTest {
-    @Inject
-    lateinit var articleDao: ArticleDao
-
-    //var articleDao: ArticleDao = mockk()
+    var articleDao: ArticleDao = mockk()
     var userDao: UserDao = mockk()
 
     lateinit var diskDataSource: DiskDataSource
@@ -44,18 +41,5 @@ class DiskDataSourceTest {
 
         val articles = diskDataSource.getSavedNews()
         Assert.assertEquals(1, articles.size)
-    }
-
-    @Test
-    fun testGetArticle() {
-        every {
-            articleDao.getArticleById("nyt://article/dbe7be50-d272-5d5b-a0f5-df08886d1ed7")
-        } returns createSavedRoomArticle()
-
-        val article =
-            diskDataSource.getArticle("nyt://article/dbe7be50-d272-5d5b-a0f5-df08886d1ed7")
-
-        Assert.assertNotEquals(null, article)
-        Assert.assertEquals("nyt://article/dbe7be50-d272-5d5b-a0f5-df08886d1ed7", article!!.uri)
     }
 }
