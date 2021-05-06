@@ -84,13 +84,10 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel>(
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.fragment_details_menu, menu)
-        when (article.state) {
-            ArticleState.SAVED -> {
-                menu.findItem(R.id.SaveAction).isVisible = false
-            }
-            ArticleState.LATEST -> {
-                menu.findItem(R.id.DeleteAction).isVisible = false
-            }
+        if (article.state == ArticleState.SAVED) {
+            menu.findItem(R.id.SaveAction).isVisible = false
+        } else if (article.state == ArticleState.LATEST) {
+            menu.findItem(R.id.DeleteAction).isVisible = false
         }
     }
 

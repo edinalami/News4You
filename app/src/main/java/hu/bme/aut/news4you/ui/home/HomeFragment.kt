@@ -10,11 +10,15 @@ import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.exhaustive
 import co.zsmb.rainbowcake.navigation.navigator
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import hu.bme.aut.news4you.R
 import hu.bme.aut.news4you.ui.about.AboutFragment
 import hu.bme.aut.news4you.ui.details.DetailsFragment
-import hu.bme.aut.news4you.ui.model.UIArticle
 import hu.bme.aut.news4you.ui.home.viewpager.HomePagerAdapter
+import hu.bme.aut.news4you.ui.model.UIArticle
 import hu.bme.aut.news4you.util.messaging.ArticleClickedEvent
 import hu.bme.aut.news4you.util.messaging.ArticleDeletedEvent
 import hu.bme.aut.news4you.util.messaging.ArticleSavedEvent
@@ -26,6 +30,8 @@ import timber.log.Timber
 
 
 class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>() {
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private lateinit var homePagerAdapter: HomePagerAdapter
 
@@ -39,6 +45,8 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>() {
         super.onCreate(savedInstanceState)
 
         setHasOptionsMenu(true)
+
+        firebaseAnalytics = Firebase.analytics
 
         homePagerAdapter =
             HomePagerAdapter(
@@ -55,6 +63,9 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>() {
         tab_layout.setupWithViewPager(pager)
         pager.adapter = homePagerAdapter
 
+        fabCrash.setOnClickListener {
+            throw RuntimeException("News4You crashed")
+        }
     }
 
     override fun onStart() {
@@ -117,6 +128,12 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>() {
         val bundle = Bundle()
         bundle.putSerializable("article", event.article)
         detailsFragment.arguments = bundle
+
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+            param(FirebaseAnalytics.Param.ITEM_ID, event.article.uri)
+            param(FirebaseAnalytics.Param.ITEM_NAME, event.article.title)
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, "article")
+        }
 
         navigator?.add(detailsFragment)
     }
